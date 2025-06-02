@@ -57,6 +57,18 @@ Una vez ambos servicios estén levantados, puedes acceder al proyecto desde tu n
 
 Desarrollar una aplicación web utilizando **Angular** con funcionalidades CRUD (Crear, Leer, Actualizar, Eliminar) usando **Nest.js** como backend.
 
+#### Descripción General
+
+Esta aplicación permite gestionar un inventario de coches de forma estructurada y eficiente. Está diseñada para concesionarios, gestores de flotas o cualquier entidad que necesite registrar vehículos con múltiples variantes o unidades asociadas.
+
+#### 🧠 Concepto Principal
+
+La aplicación se basa en un modelo jerárquico:
+
+Coche principal (CreateCar): Representa un modelo de coche con una marca y un modelo.
+Detalles del coche (CarDetails): Cada coche principal puede tener múltiples unidades físicas asociadas, cada una con sus propios datos como matrícula, kilometraje, precio, disponibilidad, etc.
+Esto permite, por ejemplo, registrar un modelo de coche como "Toyota Corolla" y luego añadir varias unidades disponibles en stock, cada una con sus características específicas.
+
 #### Requerimientos del Proyecto:
 
 1. **Configuración del entorno de desarrollo**:
