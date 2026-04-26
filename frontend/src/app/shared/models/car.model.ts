@@ -25,3 +25,17 @@ export interface CarDetail {
   licensePlate: string;
   imageUrl: string;
 }
+
+
+export interface CarListResponse {
+  items: CarBase[];
+  meta: {
+    totalItems: number;
+    itemCount: number;
+    itemsPerPage: number;
+    totalPages: number;
+    currentPage: number;
+    hasNextPage: boolean;
+    hasPreviousPage: boolean
+  };
+}
