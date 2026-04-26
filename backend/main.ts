@@ -16,6 +16,11 @@ import { AppModule } from './src/app.module';
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
+  app.enableCors({
+    origin: true,
+  });
+
+
   app.use(cookieParser());
 
   // Allow class-validator to use NestJS dependency injection container
@@ -26,7 +31,7 @@ async function bootstrap() {
     .setTitle('NTT Demo Vehicle Catalog API')
     .setDescription(
       'Backend API for the NTT Angular practice: authentication, vehicle catalog, brands, models, pagination and role-based access.\n\n' +
-        'Recommended flow in Swagger: call `POST /auth/login`, then use `GET /auth/me` and the protected endpoints normally. When the short-lived access cookie expires, call `POST /auth/refresh` and retry the failed request. Use `POST /auth/logout` to close the session cleanly.',
+      'Recommended flow in Swagger: call `POST /auth/login`, then use `GET /auth/me` and the protected endpoints normally. When the short-lived access cookie expires, call `POST /auth/refresh` and retry the failed request. Use `POST /auth/logout` to close the session cleanly.',
     )
     .setVersion('1.0')
     .addCookieAuth(ACCESS_TOKEN_COOKIE_NAME)
