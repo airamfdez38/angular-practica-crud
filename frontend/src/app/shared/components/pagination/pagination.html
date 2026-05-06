@@ -4,10 +4,10 @@
     Anterior
   </button>
 
-  @for (page of [].constructor(meta.totalPages); track $index) {
-  <button (click)="loadPage($index + 1)" [class.active]="meta.currentPage === ($index + 1)">
-    {{ $index + 1 }}
-  </button>
+  @for (page of pages; track page) {
+    <button (click)="loadPage(page)" [class.active]="meta.currentPage === page">
+      {{ page }}
+    </button>
   }
 
   <button (click)="loadPage(meta.currentPage + 1)" [disabled]="meta.currentPage === meta.totalPages">

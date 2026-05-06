@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarBase } from '../../models/car.model';
 import { CarsService } from './services/cars.service';
@@ -14,13 +14,15 @@ import { Pagination } from '../pagination/pagination';
 export class Cars implements OnInit {
 
   public carsService = inject(CarsService);
+  private cdr = inject(ChangeDetectorRef);
+
   public cars: CarBase[] = [];
   public meta: { currentPage: number; totalPages: number } = {
     currentPage: 1,
     totalPages: 1,
   };
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit(): void {
     this.loadPage(1);
@@ -28,11 +30,10 @@ export class Cars implements OnInit {
 
   loadPage(page: number) {
     this.carsService.getCars(page).subscribe(res => {
-      console.log('res', res);
-      console.log('ITEMS', res.items);
-      console.log('META', res.meta.currentPage, res.meta.totalPages);
       this.meta = res.meta;
-      this.cars = [...res.items];
+      this.cars = res.items ?? [];
+
+      this.cdr.detectChanges();
     });
   }
 

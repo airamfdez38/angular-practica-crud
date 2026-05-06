@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
-import { CarBase } from '../../../models/car.model';
+import { Car, CarBase } from '../../../models/car.model';
 import { map } from 'rxjs';
 
 @Injectable({
@@ -12,10 +12,16 @@ export class CarsService {
 
   constructor() {}
 
-  getCars(page: number = 1, limit: number = 10) {
-    const url = `${this.apiUrl}?page=${page}&limit=${limit}`;
-    return this.http.get<{ items: CarBase[]; meta: any }>(url);
-  }
+  getCars(page: number = 1, limit: number = 5) {
+  const url = `${this.apiUrl}?page=${page}&limit=${limit}`;
+  return this.http.get<{ items: CarBase[]; meta: any }>(url, {
+    headers: {
+      'Cache-Control': 'no-cache'
+    }
+  });
+}
+
+
 
   
 }

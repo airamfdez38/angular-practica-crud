@@ -9,18 +9,19 @@ import { CommonModule } from '@angular/common';
   styleUrl: './pagination.css',
 })
 export class Pagination {
+
   @Input() meta!: { currentPage: number; totalPages: number };
   @Output() pageChanged = new EventEmitter<number>();
 
-  constructor() { }
+  constructor() {}
 
-  loadPage(page: number): void {
-    if(page >= 1 && page <= this.meta.totalPages) {
-      console.log(`Loading page ${page}`);
-      this.pageChanged.emit(page);
-    } else {
-      console.log(`Invalid page ${page}`);
-    }
+  get pages(): number[] {
+    return Array.from({ length: this.meta.totalPages }, (_, i) => i + 1);
   }
 
+  loadPage(page: number): void {
+    if (page >= 1 && page <= this.meta.totalPages) {
+      this.pageChanged.emit(page);
+    }
+  }
 }
