@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { CarBase } from '../../models/car.model';
 import { CarsService } from './services/cars.service';
 import { Pagination } from '../pagination/pagination';
+import { Details } from './components/details/details';
 
 @Component({
   selector: 'app-cars',
   standalone: true,
-  imports: [CommonModule, Pagination],
+  imports: [CommonModule, Pagination, Details],
   templateUrl: './cars.html',
   styleUrls: ['./cars.css'],
 })
@@ -22,6 +23,9 @@ export class Cars implements OnInit {
     totalPages: 1,
   };
 
+  public selectedCar: CarBase | null = null;
+  public isDialogOpen = false;
+
   constructor() {}
 
   ngOnInit(): void {
@@ -35,6 +39,16 @@ export class Cars implements OnInit {
 
       this.cdr.detectChanges();
     });
+  }
+
+  openDetail(car: CarBase) {
+    this.selectedCar = car;
+    this.isDialogOpen = true;
+  }
+
+  closeDialog() {
+    this.isDialogOpen = false;
+    this.selectedCar = null;
   }
 
 }

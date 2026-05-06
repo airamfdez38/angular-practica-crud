@@ -4,6 +4,7 @@
       <th>Marca</th>
       <th>Modelo</th>
       <th>Total</th>
+      <th>Acciones</th>
     </tr>
   </thead>
   <tbody>
@@ -12,6 +13,17 @@
       <td>{{car.brand.name}}</td>
       <td>{{car.model.name}}</td>
       <td>{{car.total}}</td>
+      <td>
+        <button title="Ver detalle" (click)="openDetail(car)">
+          <i class="fa-solid fa-circle-info"></i>
+        </button>
+        <button title="Editar">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </button>
+        <button  title="Crear">
+          <i class="fa-solid fa-circle-plus"></i>
+        </button>
+      </td>
     </tr>
     }
   </tbody>
@@ -20,3 +32,11 @@
   [meta]="meta"
   (pageChanged)="loadPage($event)">
 </app-pagination>
+
+@if (isDialogOpen && selectedCar) {
+  <app-details
+    [selectedCar]="selectedCar"
+    (closed)="closeDialog()">
+  </app-details>
+ 
+}

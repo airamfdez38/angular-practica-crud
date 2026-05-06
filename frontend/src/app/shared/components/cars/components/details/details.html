@@ -1,0 +1,14 @@
+@if (selectedCar) {
+  <div class="dialog-backdrop">
+    <div class="dialog">
+      <h3>Detalle del coche</h3>
+      <p><strong>Marca:</strong> {{ selectedCar.brand.name }}</p>
+      <p><strong>Modelo:</strong> {{ selectedCar.model.name }}</p>
+      <p><strong>Total:</strong> {{ selectedCar.total }}</p>
+
+      <button (click)="close()" title="Cerrar">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
+  </div>
+}
