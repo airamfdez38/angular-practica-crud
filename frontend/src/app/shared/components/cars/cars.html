@@ -20,9 +20,7 @@
         <button title="Editar">
           <i class="fa-solid fa-pen-to-square"></i>
         </button>
-        <button  title="Crear">
-          <i class="fa-solid fa-circle-plus"></i>
-        </button>
+     
       </td>
     </tr>
     }
@@ -32,6 +30,12 @@
   [meta]="meta"
   (pageChanged)="loadPage($event)">
 </app-pagination>
+<div class="create-container">
+  <button class="create-btn" (click)="toggleCreate()"> Crear Coche</button>
+</div>
+@if (isCreateOpen) {
+  <app-create-form (carCreated)="onCarCreated($event)"></app-create-form>
+}
 
 @if (isDialogOpen && selectedCar) {
   <app-details

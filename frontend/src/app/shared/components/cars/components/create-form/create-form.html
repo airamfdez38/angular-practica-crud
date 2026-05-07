@@ -1,0 +1,83 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="car-form">
+  <h2>Datos nuevo coche</h2>
+
+  <div class="form-group">
+    <label>Marca</label>
+    <select formControlName="brandId">
+      <option value="">Seleccionar marca</option>
+      @for (brand of brands; track brand.id) {
+      <option [value]="brand.id">{{ brand.name }}</option>
+      }
+    </select>
+
+  </div>
+
+  <div class="form-group">
+    <label>Modelo</label>
+    <select formControlName="modelId">
+      <option value="">Seleccionar modelo</option>
+      @for (model of models; track model.id) {
+      <option [value]="model.id">{{ model.name }}</option>
+      }
+    </select>
+  </div>
+
+  @if (form.get('brandId')?.value && form.get('modelId')?.value) {
+    <div formArrayName="carDetails">
+      <div *ngFor="let detail of carDetails.controls; let i = index" [formGroupName]="i" class="detail-card">
+        <h3>Detalle coche {{ i + 1 }}</h3>
+
+        <div class="form-group">
+          <label>Fecha de Registro</label>
+          <input type="datetime-local" formControlName="registrationDate" />
+        </div>
+
+        <div class="form-group">
+          <label>Kilometraje</label>
+          <input type="number" formControlName="mileage" />
+        </div>
+
+        <div class="form-group">
+          <label>Precio</label>
+          <input type="number" formControlName="price" />
+        </div>
+
+        <div class="form-group">
+          <label>Año de Fabricación</label>
+          <input type="number" formControlName="manufactureYear" />
+        </div>
+
+        <div class="form-group">
+          <label>Moneda</label>
+          <input type="text" formControlName="currency" />
+        </div>
+
+        <div class="form-group checkbox">
+          <label>
+            <input type="checkbox" formControlName="availability" />
+            Disponible
+          </label>
+        </div>
+
+        <div class="form-group">
+          <label>Color</label>
+          <input type="text" formControlName="color" />
+        </div>
+
+        <div class="form-group">
+          <label>Descripción</label>
+          <textarea formControlName="description"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label>Matrícula</label>
+          <input type="text" formControlName="licensePlate" />
+        </div>
+      </div>
+    </div>
+  }
+
+  <button type="submit" class="primary-btn" [disabled]="form.invalid">
+    Crear
+  </button>
+</form>

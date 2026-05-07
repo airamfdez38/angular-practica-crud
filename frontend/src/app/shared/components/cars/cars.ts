@@ -4,11 +4,12 @@ import { CarBase } from '../../models/car.model';
 import { CarsService } from './services/cars.service';
 import { Pagination } from '../pagination/pagination';
 import { Details } from './components/details/details';
+import { CreateForm } from './components/create-form/create-form';
 
 @Component({
   selector: 'app-cars',
   standalone: true,
-  imports: [CommonModule, Pagination, Details],
+  imports: [CommonModule, Pagination, Details, CreateForm],
   templateUrl: './cars.html',
   styleUrls: ['./cars.css'],
 })
@@ -25,8 +26,7 @@ export class Cars implements OnInit {
 
   public selectedCar: CarBase | null = null;
   public isDialogOpen = false;
-
-  constructor() {}
+  public isCreateOpen = false;
 
   ngOnInit(): void {
     this.loadPage(1);
@@ -36,7 +36,6 @@ export class Cars implements OnInit {
     this.carsService.getCars(page).subscribe(res => {
       this.meta = res.meta;
       this.cars = res.items ?? [];
-
       this.cdr.detectChanges();
     });
   }
@@ -49,6 +48,15 @@ export class Cars implements OnInit {
   closeDialog() {
     this.isDialogOpen = false;
     this.selectedCar = null;
+  }
+
+  toggleCreate() {
+    this.isCreateOpen = !this.isCreateOpen;
+  }
+
+  onCarCreated(newCar: any) {
+    this.cars = [newCar, ...this.cars];
+    this.isCreateOpen = false;
   }
 
 }
