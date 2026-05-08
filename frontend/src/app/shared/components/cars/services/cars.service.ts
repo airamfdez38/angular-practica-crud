@@ -20,6 +20,10 @@ export class CarsService {
     return this.http.post<Car>(this.apiUrl, payload);
   }
 
+  updateCar(id: string, payload: any) {
+    return this.http.put<Car>(`${this.apiUrl}/${id}`, payload);
+  }
+
   getBrands() {
     return this.http.get<Brand[]>('http://localhost:3000/brands');
   }

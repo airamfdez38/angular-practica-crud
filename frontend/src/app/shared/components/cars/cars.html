@@ -17,7 +17,7 @@
         <button title="Ver detalle" (click)="openDetail(car)">
           <i class="fa-solid fa-circle-info"></i>
         </button>
-        <button title="Editar">
+        <button title="Editar" (click)="openEdit(car)">
           <i class="fa-solid fa-pen-to-square"></i>
         </button>
      
@@ -42,5 +42,12 @@
     [selectedCar]="selectedCar"
     (closed)="closeDialog()">
   </app-details>
- 
+}
+
+@if (isEditOpen && selectedCar) {
+  <app-edit-form
+    [selectedCar]="selectedCar"
+    (carUpdated)="onCarUpdated($event)"
+    (cancelEdit)="closeEdit()">
+  </app-edit-form>
 }

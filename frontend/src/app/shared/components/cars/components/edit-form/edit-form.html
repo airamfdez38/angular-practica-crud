@@ -1,0 +1,67 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" *ngIf="selectedCar">
+  <h3>Editar coche</h3>
+
+  <div>
+    <label>Marca</label>
+    <select formControlName="brandId" (change)="loadModels(form.get('brandId')?.value)">
+      <option value="">Selecciona marca</option>
+      @for (brand of brands; track brand.id) {
+        <option [value]="brand.id">
+          {{ brand.name }}
+        </option>
+      }
+    </select>
+  </div>
+
+  <div>
+    <label>Modelo</label>
+    <select formControlName="modelId">
+      <option value="">Selecciona modelo</option>
+      @for (model of models; track model.id) {
+        <option [value]="model.id">
+          {{ model.name }}
+        </option>
+      }
+    </select>
+  </div>
+
+  <div formArrayName="carDetails">
+    @for (detail of carDetails.controls; track $index; let i = $index) {
+    <div [formGroupName]="i" style="border:1px solid #ccc; padding:10px; margin-top:10px;">
+      
+      <label>Fecha matriculación</label>
+      <input type="date" formControlName="registrationDate" />
+
+      <label>Kilometraje</label>
+      <input type="number" formControlName="mileage" />
+
+      <label>Precio</label>
+      <input type="number" formControlName="price" />
+
+      <label>Año fabricación</label>
+      <input type="number" formControlName="manufactureYear" />
+
+      <label>Moneda</label>
+      <input type="text" formControlName="currency" />
+
+      <label>Disponible</label>
+      <input type="checkbox" formControlName="availability" />
+
+      <label>Color</label>
+      <input type="text" formControlName="color" />
+
+      <label>Descripción</label>
+      <textarea formControlName="description"></textarea>
+
+      <label>Matrícula</label>
+      <input type="text" formControlName="licensePlate" />
+
+    </div>
+    }
+  </div>
+
+  <div style="margin-top:15px;">
+    <button type="submit" [disabled]="form.invalid">Guardar cambios</button>
+    <button type="button" (click)="onCancel()">Cancelar</button>
+  </div>
+</form>

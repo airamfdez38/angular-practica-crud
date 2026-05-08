@@ -5,11 +5,12 @@ import { CarsService } from './services/cars.service';
 import { Pagination } from '../pagination/pagination';
 import { Details } from './components/details/details';
 import { CreateForm } from './components/create-form/create-form';
+import { EditForm } from './components/edit-form/edit-form';
 
 @Component({
   selector: 'app-cars',
   standalone: true,
-  imports: [CommonModule, Pagination, Details, CreateForm],
+  imports: [CommonModule, Pagination, Details, CreateForm, EditForm],
   templateUrl: './cars.html',
   styleUrls: ['./cars.css'],
 })
@@ -27,6 +28,7 @@ export class Cars implements OnInit {
   public selectedCar: CarBase | null = null;
   public isDialogOpen = false;
   public isCreateOpen = false;
+  public isEditOpen = false;
 
   ngOnInit(): void {
     this.loadPage(1);
@@ -41,6 +43,7 @@ export class Cars implements OnInit {
   }
 
   openDetail(car: CarBase) {
+    this.closeAllDialogs();
     this.selectedCar = car;
     this.isDialogOpen = true;
   }
@@ -50,13 +53,48 @@ export class Cars implements OnInit {
     this.selectedCar = null;
   }
 
+  private closeAllDialogs() {
+    this.isDialogOpen = false;
+    this.isEditOpen = false;
+    this.isCreateOpen = false;
+    this.selectedCar = null;
+  }
+
   toggleCreate() {
-    this.isCreateOpen = !this.isCreateOpen;
+    if (!this.isCreateOpen) {
+      this.closeAllDialogs();
+      this.isCreateOpen = true;
+    } else {
+      this.isCreateOpen = false;
+    }
+  }
+
+  openEdit(car: CarBase) {
+    this.closeAllDialogs();
+    this.selectedCar = car;
+    this.isEditOpen = true;
+  }
+
+  closeEdit() {
+    this.isEditOpen = false;
+    this.selectedCar = null;
+  }
+
+  onCarUpdated(updatedCar: CarBase) {
+    this.cars = this.cars.map(car =>
+      (car as any).id === (updatedCar as any).id ? updatedCar : car
+    );
+    this.isEditOpen = false;
+    this.selectedCar = null;
+    this.isCreateOpen = false;
+
   }
 
   onCarCreated(newCar: any) {
     this.cars = [newCar, ...this.cars];
     this.isCreateOpen = false;
+    this.isEditOpen = false;
+
   }
 
 }
