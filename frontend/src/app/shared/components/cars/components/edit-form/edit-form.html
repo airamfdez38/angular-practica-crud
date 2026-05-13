@@ -3,27 +3,14 @@
 
   <div>
     <label>Marca</label>
-    <select formControlName="brandId" (change)="loadModels(form.get('brandId')?.value)">
-      <option value="">Selecciona marca</option>
-      @for (brand of brands; track brand.id) {
-        <option [value]="brand.id">
-          {{ brand.name }}
-        </option>
-      }
-    </select>
+    <input type="text" [value]="selectedCar?.brand?.name" readonly />
   </div>
 
   <div>
     <label>Modelo</label>
-    <select formControlName="modelId">
-      <option value="">Selecciona modelo</option>
-      @for (model of models; track model.id) {
-        <option [value]="model.id">
-          {{ model.name }}
-        </option>
-      }
-    </select>
+    <input type="text" [value]="selectedCar?.model?.name" readonly />
   </div>
+
 
   <div formArrayName="carDetails">
     @for (detail of carDetails.controls; track $index; let i = $index) {

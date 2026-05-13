@@ -10,6 +10,8 @@ import { Models } from '../../../models/models.model';
 export class CarsService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:3000/cars';
+  private apiBrandUrl = 'http://localhost:3000/brands';
+  private apiModelsUrl = 'http://localhost:3000/models';
 
   getCars(page: number = 1, limit: number = 5) {
     const url = `${this.apiUrl}?page=${page}&limit=${limit}`;
@@ -25,7 +27,7 @@ export class CarsService {
   }
 
   getBrands() {
-    return this.http.get<Brand[]>('http://localhost:3000/brands');
+    return this.http.get<Brand[]>(`${this.apiBrandUrl}`);
   }
 
   getModelsByBrand(brandId: string) {

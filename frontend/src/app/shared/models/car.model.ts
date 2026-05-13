@@ -5,8 +5,8 @@ export interface CarBase {
   id: string;
   brand: Brand;
   model: Models;
-  total: number;
-  imageUrl: string;
+  total?: number;
+  imageUrl?: string;
 }
 
 export interface Car extends CarBase {
