@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CarBase } from '../../../../models/car.model';
+import { Car } from '../../../../models/car.model';
 
 @Component({
   selector: 'app-details',
@@ -11,7 +11,7 @@ import { CarBase } from '../../../../models/car.model';
 })
 export class Details {
 
-  @Input() selectedCar: CarBase | null = null;
+  @Input() selectedCar: Car | null = null;
   @Output() closed = new EventEmitter<void>();
 
   close() {

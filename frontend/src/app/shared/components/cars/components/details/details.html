@@ -6,6 +6,27 @@
       <p><strong>Modelo:</strong> {{ selectedCar.model.name }}</p>
       <p><strong>Total:</strong> {{ selectedCar.total }}</p>
 
+      @for (detail of selectedCar.carDetails; track $index) {
+        <div class="car-detail-block">
+          <p><strong>Matrícula:</strong> {{ detail.licensePlate }}</p>
+          <p><strong>Fecha matriculación:</strong> {{ detail.registrationDate | date:'dd/MM/yyyy' }}</p>
+          <p><strong>Año fabricación:</strong> {{ detail.manufactureYear }}</p>
+          <p><strong>Kilometraje:</strong> {{ detail.mileage }} km</p>
+          <p><strong>Precio:</strong> {{ detail.price }} {{ detail.currency }}</p>
+          <p><strong>Disponible:</strong> {{ detail.availability ? 'Sí' : 'No' }}</p>
+          <p><strong>Color:</strong> {{ detail.color }}</p>
+          <p><strong>Descripción:</strong> {{ detail.description }}</p>
+
+          @if (detail.imageUrl) {
+            <div class="detail-image">
+              <img [src]="detail.imageUrl" alt="Imagen del coche" />
+            </div>
+          }
+
+          <hr />
+        </div>
+      }
+
       <button (click)="close()" title="Cerrar">
         <i class="fa-solid fa-xmark"></i>
       </button>
